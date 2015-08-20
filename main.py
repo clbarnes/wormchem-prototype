@@ -18,7 +18,7 @@ import webapp2
 from utils.pages import *
 from utils import initial_setup
 
-initial_setup.main(purge=False)
+# initial_setup.main(purge=False)
 
 app = webapp2.WSGIApplication([
     ('/', WelcomePage),

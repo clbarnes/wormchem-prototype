@@ -10,7 +10,7 @@
 <h3>{{ monoamine }}</h3>
 <ul>
     {% for receptor in receptors|sort %}
-    <li>{{ receptor.name }} -- {{ receptor.citation }}</li>
+    <li>{{ receptor.gene }} -- {{ receptor.wbid }} -- {{ receptor.citation }}</li>
     {% endfor %}
 </ul>
 {% endfor %}

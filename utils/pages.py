@@ -1,5 +1,6 @@
 from baseclasses import Handler
 from models import *
+from collections import defaultdict
 
 
 class WelcomePage(Handler):
@@ -19,7 +20,11 @@ class TgtExpressionPage(Handler):
 
 class MaToReceptorPage(Handler):
     def get(self):
-        self.render('ma_to_receptor.html', admin=True, ma_to_receptors=ma_to_receptors, logged_in=True, receptor='')
+        results = db.GqlQuery('SELECT * FROM Receptor ORDER BY gene')
+        ma_to_receptors = defaultdict(list)
+        for result in results:
+            ma_to_receptors[result.monoamine].append(result)
+        self.render('ma_to_receptor.html', admin=True, ma_to_receptors=dict(ma_to_receptors), logged_in=True, receptor='')
 
     def post(self):
         self.render('ma_to_receptor.html', admin=True, logged_in=True, error='Sorry, not implemented yet')
