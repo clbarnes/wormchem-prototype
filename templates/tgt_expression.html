@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Expression patterns of target genes</h2>
+
+<p>List of monoamines, their target genes and their expression patterns with citations</p>
+<p>Not implemented yet</p>
+
+{#{% for monoamine in sorted(ma_to_src_genes) %}#}
+{#<h3>{{ monoamine }}</h3>#}
+{#<ul>#}
+{#    {% for src_gene in ma_to_src_genes[monoamine] %}#}
+{#    <li>{{ src_gene }}</li>#}
+{#    <ul>#}
+{#        {% for expr in src_expr[src_gene] %}#}
+{#        <li>expr.node, expr.citation</li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{#{% endfor %}#}
+{% endblock %}

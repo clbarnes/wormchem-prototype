@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Admin page</h2>
+
+<p>Where you can do admin-y things</p>
+<p>Not implemented yet</p>
+
+
+    <form method="post">
+        Expunge user's contributions:
+            <input type="text" name="username" value="{{ username }}">
+        <input type="submit">
+    </form>
+{#{% for monoamine in sorted(ma_to_src_genes) %}#}
+{#<h3>{{ monoamine }}</h3>#}
+{#<ul>#}
+{#    {% for src_gene in ma_to_src_genes[monoamine] %}#}
+{#    <li>{{ src_gene }}</li>#}
+{#    <ul>#}
+{#        {% for expr in src_expr[src_gene] %}#}
+{#        <li>expr.node, expr.citation</li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{#{% endfor %}#}
+
+{% endblock %}

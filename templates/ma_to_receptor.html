@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Monoamine to receptor mappings</h2>
+
+<p>List of monoamines and their receptors</p>
+<p>Not implemented yet</p>
+
+{% for monoamine, receptors in ma_to_receptors|dictsort %}
+<h3>{{ monoamine }}</h3>
+<ul>
+    {% for receptor in receptors|sort %}
+    <li>{{ receptor.name }} -- {{ receptor.citation }}</li>
+    {% endfor %}
+</ul>
+{% endfor %}
+
+    <br>
+
+    {% if logged_in %}
+    <p>Submit your own (will be moderated)</p>
+    <form method="post">
+    <label>
+        Monoamine:
+        <input type="text" name="monoamine" value="{{ monoamine }}">
+    </label><br>
+        <label>
+            Receptor:
+            <input type="text" name="receptor" value="{{ receptor }}">
+        </label><br>
+        <label>
+            Citation:
+            <input type="text" name="citation" value="{{ citation }}">
+        </label>
+        <input type="submit">
+    <div class="error">{{ error | safe }}</div>
+    </form>
+    {% else %}
+    <p>Please log in to submit your own</p>
+    {% endif %}
+
+{% endblock %}
