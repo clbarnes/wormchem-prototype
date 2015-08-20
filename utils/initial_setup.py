@@ -6,6 +6,7 @@ import json
 import csv
 
 DATA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'initial_setup')
+# DATA_ROOT = os.path.join('/', 'initial_setup')
 MONOAMINE_FILE_ROOT = 'monoamine_network_{}.csv'
 CLASS_TO_NEURON_FILENAME = 'class_to_neurons.json'
 
@@ -26,7 +27,7 @@ def gen_data_rows(file_obj):
 
 
 def sanitise(*args):
-    return [str(arg).strip() for arg in args]
+    return [str(arg).decode('utf-8').strip() for arg in args]
 
 
 def populate_SourceGene_Receptor():
@@ -36,7 +37,10 @@ def populate_SourceGene_Receptor():
         with open(os.path.join(DATA_ROOT, MONOAMINE_FILE_ROOT.format(sheet_name))) as f:
             for row in gen_data_rows(f):
                 monoamine, gene_type, name, wbid, citation = sanitise(
-                    row[0], row[1], row[2], row[3], row[7])
+                    row[0], row[1], row[2], row[3], row[7] if len(row) > 7 else '')
+
+                if not citation:
+                    citation = 'Unpublished'
 
                 if gene_type == 'source':
                     entry = SourceGene(gene=name, wbid=wbid, monoamine=monoamine, citation=citation, added_by='Admin')
@@ -58,8 +62,11 @@ def populate_GeneExpression():
         with open(os.path.join(DATA_ROOT, MONOAMINE_FILE_ROOT.format(sheet_name))) as f:
             for row in gen_data_rows(f):
                 gene, neuron_class, wbid, citation = sanitise(
-                    row[1].value, row[2].value, row[3].value, row[4].value
+                    row[1], row[2], row[3], row[4] if len(row) > 4 else ''
                 )
+
+                if not citation:
+                    citation = 'Unpublished'
 
                 for neuron_name in class_to_neurons.get(neuron_class, [neuron_class]):
                     entry = GeneExpression(gene=gene, neuron=neuron_name, citation=citation, wbid=wbid, added_by='Admin')
