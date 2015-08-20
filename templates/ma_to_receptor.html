@@ -4,12 +4,11 @@
 <h2>Monoamine to receptor mappings</h2>
 
 <p>List of monoamines and their receptors</p>
-<p>Not implemented yet</p>
 
 {% for monoamine, receptors in ma_to_receptors|dictsort %}
 <h3>{{ monoamine }}</h3>
 <ul>
-    {% for receptor in receptors|sort %}
+    {% for receptor in receptors %}
     <li>{{ receptor.gene }} -- {{ receptor.wbid }} -- {{ receptor.citation }}</li>
     {% endfor %}
 </ul>
