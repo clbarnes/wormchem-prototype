@@ -15,11 +15,11 @@ def users_key(group='default'):
 
 class SourceGene(db.Model):
     gene = db.StringProperty(required=True)
-    wbid = db.StringProperty(required=True)
     monoamine = db.StringProperty(required=True)
     citation = db.StringProperty(required=True)
     added = db.DateTimeProperty(auto_now_add=True)
     added_by = db.StringProperty(required=True)
+    wbid = db.StringProperty()
     reviewed_by = db.StringProperty()
     reviewed_on = db.DateTimeProperty()
     deleted_on = db.DateTimeProperty()
@@ -27,22 +27,11 @@ class SourceGene(db.Model):
 
 class Receptor(db.Model):
     gene = db.StringProperty(required=True)
-    wbid = db.StringProperty(required=True)
     monoamine = db.StringProperty(required=True)
     citation = db.StringProperty(required=True)
     added = db.DateTimeProperty(auto_now_add=True)
     added_by = db.StringProperty(required=True)
-    reviewed_by = db.StringProperty()
-    reviewed_on = db.DateTimeProperty()
-    deleted_on = db.DateTimeProperty()
-
-
-class MaToReceptorMapping(db.Model):
-    monoamine = db.StringProperty(required=True)
-    receptor = db.StringProperty(required=True)
-    citation = db.StringProperty(required=True)
-    added = db.DateTimeProperty(auto_now_add=True)
-    added_by = db.StringProperty(required=True)
+    wbid = db.StringProperty()
     reviewed_by = db.StringProperty()
     reviewed_on = db.DateTimeProperty()
     deleted_on = db.DateTimeProperty()
@@ -54,6 +43,7 @@ class GeneExpression(db.Model):
     citation = db.StringProperty(required=True)
     added = db.DateTimeProperty(auto_now_add=True)
     added_by = db.StringProperty(required=True)
+    wbid = db.StringProperty()
     reviewed_by = db.StringProperty()
     reviewed_on = db.DateTimeProperty()
     deleted_on = db.DateTimeProperty()

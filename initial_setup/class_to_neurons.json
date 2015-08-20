@@ -1,0 +1,448 @@
+{
+  "ADA": [
+    "ADAR",
+    "ADAL"
+  ],
+  "ADE": [
+    "ADEL",
+    "ADER"
+  ],
+  "ADF": [
+    "ADFR",
+    "ADFL"
+  ],
+  "ADL": [
+    "ADLR",
+    "ADLL"
+  ],
+  "AFD": [
+    "AFDL",
+    "AFDR"
+  ],
+  "AIA": [
+    "AIAR",
+    "AIAL"
+  ],
+  "AIB": [
+    "AIBR",
+    "AIBL"
+  ],
+  "AIM": [
+    "AIMR",
+    "AIML"
+  ],
+  "AIY": [
+    "AIYR",
+    "AIYL"
+  ],
+  "AIZ": [
+    "AIZR",
+    "AIZL"
+  ],
+  "ALM": [
+    "ALMR",
+    "ALML"
+  ],
+  "ALN": [
+    "ALNR",
+    "ALNL"
+  ],
+  "AS": [
+    "AS8",
+    "AS11",
+    "AS7",
+    "AS9",
+    "AS6",
+    "AS3",
+    "AS10",
+    "AS4",
+    "AS1",
+    "AS5",
+    "AS2"
+  ],
+  "ASE": [
+    "ASEL",
+    "ASER"
+  ],
+  "ASG": [
+    "ASGR",
+    "ASGL"
+  ],
+  "ASH": [
+    "ASHR",
+    "ASHL"
+  ],
+  "ASI": [
+    "ASIR",
+    "ASIL"
+  ],
+  "ASJ": [
+    "ASJR",
+    "ASJL"
+  ],
+  "ASK": [
+    "ASKL",
+    "ASKR"
+  ],
+  "AUA": [
+    "AUAL",
+    "AUAR"
+  ],
+  "AVA": [
+    "AVAL",
+    "AVAR"
+  ],
+  "AVB": [
+    "AVBR",
+    "AVBL"
+  ],
+  "AVD": [
+    "AVDR",
+    "AVDL"
+  ],
+  "AVE": [
+    "AVEL",
+    "AVER"
+  ],
+  "AVF": [
+    "AVFL",
+    "AVFR"
+  ],
+  "AVH": [
+    "AVHL",
+    "AVHR"
+  ],
+  "AVJ": [
+    "AVJL",
+    "AVJR"
+  ],
+  "AVK": [
+    "AVKL",
+    "AVKR"
+  ],
+  "AWA": [
+    "AWAL",
+    "AWAR"
+  ],
+  "AWB": [
+    "AWBL",
+    "AWBR"
+  ],
+  "AWC": [
+    "AWCR",
+    "AWCL"
+  ],
+  "BAG": [
+    "BAGL",
+    "BAGR"
+  ],
+  "BDU": [
+    "BDUR",
+    "BDUL"
+  ],
+  "CAN": [
+    "CANL",
+    "CANR"
+  ],
+  "CEP": [
+    "CEPDR",
+    "CEPDL",
+    "CEPVR",
+    "CEPVL"
+  ],
+  "DA": [
+    "DA9",
+    "DA4",
+    "DA1",
+    "DA6",
+    "DA2",
+    "DA5",
+    "DA3",
+    "DA8",
+    "DA7"
+  ],
+  "DB": [
+    "DB1",
+    "DB5",
+    "DB3",
+    "DB7",
+    "DB6",
+    "DB2",
+    "DB4"
+  ],
+  "DD": [
+    "DD3",
+    "DD1",
+    "DD2",
+    "DD6",
+    "DD5",
+    "DD4"
+  ],
+  "FLP": [
+    "FLPL",
+    "FLPR"
+  ],
+  "HSN": [
+    "HSNR",
+    "HSNL"
+  ],
+  "I1": [
+    "I1L",
+    "I1R"
+  ],
+  "I2": [
+    "I2L",
+    "I2R"
+  ],
+  "IL1": [
+    "IL1L",
+    "IL1R",
+    "IL1DL",
+    "IL1VL",
+    "IL1VR",
+    "IL1DR"
+  ],
+  "IL2": [
+    "IL2DR",
+    "IL2VR",
+    "IL2DL",
+    "IL2R",
+    "IL2L",
+    "IL2VL"
+  ],
+  "LUA": [
+    "LUAL",
+    "LUAR"
+  ],
+  "M2": [
+    "M2L",
+    "M2R"
+  ],
+  "M3": [
+    "M3L",
+    "M3R"
+  ],
+  "MC": [
+    "MCR",
+    "MCL"
+  ],
+  "NSM": [
+    "NSMR",
+    "NSML"
+  ],
+  "OLL": [
+    "OLLR",
+    "OLLL"
+  ],
+  "OLQ": [
+    "OLQVR",
+    "OLQDL",
+    "OLQDR",
+    "OLQVL"
+  ],
+  "PDE": [
+    "PDEL",
+    "PDER"
+  ],
+  "PHA": [
+    "PHAR",
+    "PHAL"
+  ],
+  "PHB": [
+    "PHBR",
+    "PHBL"
+  ],
+  "PHC": [
+    "PHCL",
+    "PHCR"
+  ],
+  "PLM": [
+    "PLMR",
+    "PLML"
+  ],
+  "PLN": [
+    "PLNR",
+    "PLNL"
+  ],
+  "PVC": [
+    "PVCR",
+    "PVCL"
+  ],
+  "PVD": [
+    "PVDL",
+    "PVDR"
+  ],
+  "PVN": [
+    "PVNL",
+    "PVNR"
+  ],
+  "PVP": [
+    "PVPR",
+    "PVPL"
+  ],
+  "PVQ": [
+    "PVQL",
+    "PVQR"
+  ],
+  "PVW": [
+    "PVWL",
+    "PVWR"
+  ],
+  "RIA": [
+    "RIAL",
+    "RIAR"
+  ],
+  "RIB": [
+    "RIBL",
+    "RIBR"
+  ],
+  "RIC": [
+    "RICL",
+    "RICR"
+  ],
+  "RIF": [
+    "RIFL",
+    "RIFR"
+  ],
+  "RIG": [
+    "RIGL",
+    "RIGR"
+  ],
+  "RIM": [
+    "RIMR",
+    "RIML"
+  ],
+  "RIV": [
+    "RIVL",
+    "RIVR"
+  ],
+  "RMD": [
+    "RMDDR",
+    "RMDDL",
+    "RMDVL",
+    "RMDR",
+    "RMDL",
+    "RMDVR"
+  ],
+  "RME": [
+    "RMED",
+    "RMEL",
+    "RMER",
+    "RMEV"
+  ],
+  "RMF": [
+    "RMFL",
+    "RMFR"
+  ],
+  "RMG": [
+    "RMGR",
+    "RMGL"
+  ],
+  "RMH": [
+    "RMHL",
+    "RMHR"
+  ],
+  "SAA": [
+    "SAADL",
+    "SAAVL",
+    "SAAVR",
+    "SAADR"
+  ],
+  "SAB": [
+    "SABD",
+    "SABVR",
+    "SABVL"
+  ],
+  "SDQ": [
+    "SDQR",
+    "SDQL"
+  ],
+  "SIA": [
+    "SIADL",
+    "SIAVL",
+    "SIADR",
+    "SIAVR"
+  ],
+  "SIB": [
+    "SIBDR",
+    "SIBVL",
+    "SIBVR",
+    "SIBDL"
+  ],
+  "SMD": [
+    "SMDVL",
+    "SMDDR",
+    "SMDDL",
+    "SMDVR"
+  ],
+  "URA": [
+    "URAVL",
+    "URAVR",
+    "URADR",
+    "URADL"
+  ],
+  "URB": [
+    "URBL",
+    "URBR"
+  ],
+  "URX": [
+    "URXL",
+    "URXR"
+  ],
+  "URY": [
+    "URYVR",
+    "URYDL",
+    "URYVL",
+    "URYDR"
+  ],
+  "VA": [
+    "VA2",
+    "VA6",
+    "VA4",
+    "VA9",
+    "VA11",
+    "VA8",
+    "VA5",
+    "VA3",
+    "VA7",
+    "VA12",
+    "VA1",
+    "VA10"
+  ],
+  "VB": [
+    "VB3",
+    "VB1",
+    "VB4",
+    "VB2",
+    "VB5",
+    "VB9",
+    "VB8",
+    "VB6",
+    "VB10",
+    "VB7",
+    "VB11"
+  ],
+  "VC": [
+    "VC3",
+    "VC6",
+    "VC1",
+    "VC4",
+    "VC2",
+    "VC5"
+  ],
+  "VD": [
+    "VD9",
+    "VD7",
+    "VD11",
+    "VD5",
+    "VD6",
+    "VD10",
+    "VD12",
+    "VD3",
+    "VD8",
+    "VD1",
+    "VD2",
+    "VD13",
+    "VD4"
+  ]
+}
