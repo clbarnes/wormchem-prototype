@@ -1,6 +1,7 @@
 from baseclasses import Handler
 from models import *
 from collections import defaultdict
+from itertools import chain
 
 
 class WelcomePage(Handler):
@@ -10,12 +11,24 @@ class WelcomePage(Handler):
 
 class SrcExpressionPage(Handler):
     def get(self):
+
+        ma_to_src_genes = SourceGene.get_ma_to_src_genes()  #
+        # self.write('ma_to_src_genes = ' + str(ma_to_src_genes))
+        src_expr = GeneExpression.get_genes([d['gene'] for d in chain(*ma_to_src_genes.values())])
+        # self.write('src_expr = ' + str(src_expr))
+
         self.render('src_expression.html', admin=True, ma_to_src_genes=ma_to_src_genes, src_expr=src_expr)
 
 
 class TgtExpressionPage(Handler):
     def get(self):
-        self.render('tgt_expression.html', admin=True)
+
+        ma_to_rec_genes = Receptor.get_ma_to_rec_genes()  #
+        # self.write('ma_to_src_genes = ' + str(ma_to_src_genes))
+        rec_expr = GeneExpression.get_genes([d['gene'] for d in chain(*ma_to_rec_genes.values())])
+        # self.write('src_expr = ' + str(src_expr))
+
+        self.render('tgt_expression.html', admin=True, ma_to_rec_genes=ma_to_rec_genes, rec_expr=rec_expr)
 
 
 class MaToReceptorPage(Handler):

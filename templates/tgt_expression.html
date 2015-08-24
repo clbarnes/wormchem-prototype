@@ -1,22 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Expression patterns of target genes</h2>
+    <h2>Expression patterns of receptor genes</h2>
 
-<p>List of monoamines, their target genes and their expression patterns with citations</p>
-<p>Not implemented yet</p>
+    <p>List of monoamines, their receptor genes and their expression patterns with citations</p>
 
-{#{% for monoamine in sorted(ma_to_src_genes) %}#}
-{#<h3>{{ monoamine }}</h3>#}
-{#<ul>#}
-{#    {% for src_gene in ma_to_src_genes[monoamine] %}#}
-{#    <li>{{ src_gene }}</li>#}
-{#    <ul>#}
-{#        {% for expr in src_expr[src_gene] %}#}
-{#        <li>expr.node, expr.citation</li>#}
-{#        {% endfor %}#}
-{#    </ul>#}
-{#    {% endfor %}#}
-{#</ul>#}
-{#{% endfor %}#}
+    {% for monoamine, gene_dicts_list in ma_to_rec_genes|dictsort %}
+        <h3>{{ monoamine }}</h3>
+        <ul>
+            {% for gene_dict in gene_dicts_list %}
+                <li>{{ gene_dict['gene'] }}</li>
+                <ul>
+                    {% for expr in rec_expr[gene_dict['gene']] %}
+                        <li>{{ expr['node'] }} -- {{ expr['wbid'] }} -- {{ expr['citation'] }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+    <br>
+
+    {% if logged_in %}
+        <p>Submit your own (will be moderated)</p>
+        <form method="post">
+            <label>
+                Monoamine:
+                <input type="text" name="monoamine" value="{{ monoamine }}">
+            </label><br>
+            <label>
+                Source gene:
+                <input type="text" name="receptor_gene" value="{{ receptor_gene }}">
+            </label><br>
+            <label>
+                Citation:
+                <input type="text" name="citation" value="{{ citation }}">
+            </label>
+            <input type="submit">
+
+            <div class="error">{{ error | safe }}</div>
+        </form>
+    {% else %}
+        <p>Please log in to submit your own</p>
+    {% endif %}
+
 {% endblock %}

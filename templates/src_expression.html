@@ -1,46 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Expression patterns of source genes</h2>
+    <h2>Expression patterns of source genes</h2>
 
-<p>List of monoamines, their source genes and their expression patterns with citations</p>
+    <p>List of monoamines, their source genes and their expression patterns with citations</p>
 
-{% for monoamine, genes in ma_to_src_genes.items() %}
-<h3>{{ monoamine }}</h3>
-<ul>
-    {% for src_gene in genes %}
-    <li>{{ src_gene }}</li>
-    <ul>
-        {% for expr in src_expr[src_gene] %}
-            <li>{{ expr['node'] }} -- {{ expr['citation'] }}</li>
-        {% endfor %}
-    </ul>
+    {% for monoamine, gene_dicts_list in ma_to_src_genes|dictsort %}
+        <h3>{{ monoamine }}</h3>
+        <ul>
+            {% for gene_dict in gene_dicts_list %}
+                <li>{{ gene_dict['gene'] }}</li>
+                <ul>
+                    {% for expr in src_expr[gene_dict['gene']] %}
+                        <li>{{ expr['node'] }} -- {{ expr['wbid'] }} -- {{ expr['citation'] }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </ul>
     {% endfor %}
-</ul>
-{% endfor %}
 
-        <br>
+    <br>
 
     {% if logged_in %}
-    <p>Submit your own (will be moderated)</p>
-    <form method="post">
-    <label>
-        Monoamine:
-        <input type="text" name="monoamine" value="{{ monoamine }}">
-    </label><br>
-        <label>
-            Source gene:
-            <input type="text" name="source_gene" value="{{ source_gene }}">
-        </label><br>
-        <label>
-            Citation:
-            <input type="text" name="citation" value="{{ citation }}">
-        </label>
-        <input type="submit">
-    <div class="error">{{ error | safe }}</div>
-    </form>
+        <p>Submit your own (will be moderated)</p>
+        <form method="post">
+            <label>
+                Monoamine:
+                <input type="text" name="monoamine" value="{{ monoamine }}">
+            </label><br>
+            <label>
+                Source gene:
+                <input type="text" name="source_gene" value="{{ source_gene }}">
+            </label><br>
+            <label>
+                Citation:
+                <input type="text" name="citation" value="{{ citation }}">
+            </label>
+            <input type="submit">
+
+            <div class="error">{{ error | safe }}</div>
+        </form>
     {% else %}
-    <p>Please log in to submit your own</p>
+        <p>Please log in to submit your own</p>
     {% endif %}
 
 {% endblock %}

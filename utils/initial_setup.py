@@ -4,6 +4,7 @@ from google.appengine.ext import db
 import warnings
 import json
 import csv
+import logging
 
 DATA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'initial_setup')
 # DATA_ROOT = os.path.join('/', 'initial_setup')
@@ -12,10 +13,12 @@ CLASS_TO_NEURON_FILENAME = 'class_to_neurons.json'
 
 
 def purge_tables():
-    tables = ['SourceGene', 'Receptor', 'GeneExpression']
+    tables = [SourceGene, Receptor, GeneExpression]
 
     for table in tables:
-        for row in db.GqlQuery('SELECT * FROM {}'.format(table)):
+        q = table.all()
+        q.get()
+        for row in q:
             row.delete()
 
 
@@ -54,13 +57,19 @@ def populate_SourceGene_Receptor():
 
 
 def populate_GeneExpression():
+    # logging.error('Getting neurone class mappings')
     with open(os.path.join(DATA_ROOT, CLASS_TO_NEURON_FILENAME)) as f:
         class_to_neurons = json.load(f)
+
     sheet_names = ['Receptor Expr', 'Monoamine Expr']
 
     for sheet_name in sheet_names:
+        # logging.error('Opening sheet {}'.format(sheet_name))
         with open(os.path.join(DATA_ROOT, MONOAMINE_FILE_ROOT.format(sheet_name))) as f:
             for row in gen_data_rows(f):
+
+                # logging.error('Processing row: \n\t {}'.format(str(row)))
+
                 gene, neuron_class, wbid, citation = sanitise(
                     row[1], row[2], row[3], row[4] if len(row) > 4 else ''
                 )
@@ -79,8 +88,10 @@ def populate_tables():
     populate_SourceGene_Receptor()
 
 
-def main(purge=True):
+def main(purge=False):
     if purge:
+        # logging.error('Purging tables')
         purge_tables()
 
+    # logging.error('Populating tables')
     populate_tables()
