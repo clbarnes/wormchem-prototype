@@ -25,15 +25,13 @@ def generate_edges():
                     yield src_node, tgt_node, monoamine.lower(), tgt_gene
 
 
-def generate_and_cache_edgelist():
-    output = io.BytesIO()
-    writer = csv.writer(output)
-    writer.writerow(['source_node', 'target_node', 'monoamine', 'receptor'])
-    for edge in generate_edges():
-        writer.writerow(edge)
+def generate_and_cache_edgelist(formatted=False):
+    edgelist = sorted(generate_edges(), key=lambda s: (s[0], s[1], s[2], s[3]))
 
-    edgelist = output.getvalue().strip('\r\n')
+    headers = ('source_node', 'target_node', 'monoamine', 'receptor')
+    edgelist_formatted = '<br>'.join(','.join(edge) for edge in [headers] + edgelist)
 
     memcache.set('edgelist', edgelist)
+    memcache.set('edgelist_formatted', edgelist_formatted)
 
-    return edgelist
+    return edgelist_formatted if formatted else edgelist
