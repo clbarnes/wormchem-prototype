@@ -92,7 +92,19 @@ class GeneExpression(GeneEntry, DeletableEntry, ReviewableEntry, db.Model):
         """
         logging.error('gene_list = ' + str(gene_list))
         d = defaultdict(list)
-        query = cls.all().filter('gene IN ', gene_list).order('deleted_on').order('gene')  # todo ignore deleted entries
+
+        # gene_list = sorted(gene_list, reverse=True)
+        # in_filter_list = []
+        # while len(gene_list) > 30:
+        #     in_filter_list.append(gene_list[:30])
+        #     gene_list = gene_list[30:]
+        # in_filter_list.append(gene_list)
+        #
+        # queries = [cls.all().filter('gene IN ', in_filter).order('gene') for in_filter in in_filter_list]
+        #
+        # for query in queries:
+
+        query = cls.all().filter('gene IN ', list(set(gene_list))).order('gene')  # todo ignore deleted entries
         for row in query:
             d[row.gene].append({'node': row.neuron, 'wbid': row.wbid, 'citation': row.citation})
 
