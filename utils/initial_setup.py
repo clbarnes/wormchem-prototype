@@ -1,13 +1,13 @@
 from models import SourceGene, Receptor, GeneExpression
 import os
-from google.appengine.ext import db
 import warnings
 import json
 import csv
 import logging
+from connectome import generate_and_cache_edgelist
+from google.appengine.api import memcache
 
 DATA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'initial_setup')
-# DATA_ROOT = os.path.join('/', 'initial_setup')
 MONOAMINE_FILE_ROOT = 'monoamine_network_{}.csv'
 CLASS_TO_NEURON_FILENAME = 'class_to_neurons.json'
 
@@ -74,6 +74,9 @@ def populate_GeneExpression():
                     row[1], row[2], row[3], row[4] if len(row) > 4 else ''
                 )
 
+                if '*' in neuron_class:
+                    continue
+
                 if not citation:
                     citation = 'Unpublished'
 
@@ -95,3 +98,6 @@ def main(purge=False):
 
     # logging.error('Populating tables')
     populate_tables()
+
+    memcache.flush_all()
+    generate_and_cache_edgelist()

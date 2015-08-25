@@ -17,7 +17,6 @@ def users_key(group='default'):
 
 
 class DeletableEntry(db.Model):
-    # __metaclass__ = abc.ABCMeta
     deleted_on = db.DateTimeProperty()
     deleted_by = db.StringProperty()
 
@@ -27,7 +26,6 @@ class DeletableEntry(db.Model):
 
 
 class ReviewableEntry(db.Model):
-    # __metaclass__ = abc.ABCMeta
     added_on = db.DateTimeProperty(auto_now_add=True)
     added_by = db.StringProperty(required=True)
     reviewed_by = db.StringProperty()
@@ -39,7 +37,6 @@ class ReviewableEntry(db.Model):
 
 
 class GeneEntry(db.Model):
-    # __metaclass__ = abc.ABCMeta
     gene = db.StringProperty(required=True)
     citation = db.StringProperty(required=True)
     wbid = db.StringProperty()
@@ -52,13 +49,8 @@ class UniqueGeneEntry(GeneEntry, db.Model):
     def by_name(cls, gene_name):
         cls.all().filter('gene = ', gene_name).get()  # todo: not sure about this
 
-
-class SourceGene(UniqueGeneEntry, DeletableEntry, ReviewableEntry, db.Model):
-    monoamine = db.StringProperty(required=True)
-    # gene = db.StringProperty(required=True)
-
     @classmethod
-    def get_ma_to_src_genes(cls):
+    def get_all_by_monoamine(cls):
         """
         Return a dictionary whose keys are monoamines and values are lists.
 
@@ -67,43 +59,20 @@ class SourceGene(UniqueGeneEntry, DeletableEntry, ReviewableEntry, db.Model):
         :return: d
         :rtype: dict of lists of dicts
         """
-        logging.error('Getting ma_to_src_genes')
         d = defaultdict(list)
-        # query = cls.all().filter('deleted_on !=', None).order('deleted_on').order('gene')
-        query = cls.all().order('deleted_on').order('gene')
-        logging.error('get_ma_to_src_genes query len = ' + str(len(list(query))))
+        query = cls.all().order('deleted_on').order('gene')  # todo ignore deleted entries
         for row in query:
             d[row.monoamine.title()].append({'gene': row.gene, 'citation': row.citation, 'wbid': row.wbid})
 
-        logging.error('ma_to_src_genes = ' + str(d))
-
         return dict(d)
+
+
+class SourceGene(UniqueGeneEntry, DeletableEntry, ReviewableEntry, db.Model):
+    monoamine = db.StringProperty(required=True)
 
 
 class Receptor(UniqueGeneEntry, DeletableEntry, ReviewableEntry, db.Model):
     monoamine = db.StringProperty(required=True)
-
-    @classmethod
-    def get_ma_to_rec_genes(cls):
-        """
-        Return a dictionary whose keys are monoamines and values are lists.
-
-        The items of these lists are dictionaries whose keys are 'gene', 'citation' and 'wbid' and values are the corresponding strings for a single source gene.
-
-        :return: d
-        :rtype: dict of lists of dicts
-        """
-        logging.error('Getting ma_to_rec_genes')
-        d = defaultdict(list)
-        # query = cls.all().filter('deleted_on !=', None).order('deleted_on').order('gene')
-        query = cls.all().order('deleted_on').order('gene')
-        logging.error('get_ma_to_rec_genes query len = ' + str(len(list(query))))
-        for row in query:
-            d[row.monoamine.title()].append({'gene': row.gene, 'citation': row.citation, 'wbid': row.wbid})
-
-        logging.error('ma_to_rec_genes = ' + str(d))
-
-        return dict(d)
 
 
 class GeneExpression(GeneEntry, DeletableEntry, ReviewableEntry, db.Model):
@@ -123,7 +92,7 @@ class GeneExpression(GeneEntry, DeletableEntry, ReviewableEntry, db.Model):
         """
         logging.error('gene_list = ' + str(gene_list))
         d = defaultdict(list)
-        query = cls.all().filter('gene IN ', gene_list).order('deleted_on').order('gene')
+        query = cls.all().filter('gene IN ', gene_list).order('deleted_on').order('gene')  # todo ignore deleted entries
         for row in query:
             d[row.gene].append({'node': row.neuron, 'wbid': row.wbid, 'citation': row.citation})
 
@@ -131,9 +100,18 @@ class GeneExpression(GeneEntry, DeletableEntry, ReviewableEntry, db.Model):
 
         return dict(d)
 
+    @classmethod
+    def get_all_by_gene(cls):
+        """
 
+        :return: A dictionary whose keys are genes and values are lists of neurons where the gene is expressed
+        """
+        d = defaultdict(list)
+        query = cls.all()  # todo ignore deleted entries
+        for row in query:
+            d[row.gene].append(row.neuron)
 
-    # todo: getting genes by cell and by gene
+        return dict(d)
 
 
 class User(DeletableEntry, db.Model):
@@ -171,34 +149,3 @@ class User(DeletableEntry, db.Model):
 
 def sanitise(s):
     return 'test string please ignore'
-
-# ma_to_src_genes = {
-#     'Serotonin': ['ser-1', 'ser-4'],
-#     'Dopamine': ['dop-1', 'dop-2']
-# }
-#
-# src_expr = {
-#     'ser-1': [{'node': 'RIA',
-#               'citation': 'this is where a citation should go'}],
-#     'ser-4': [{'node': 'RIB', 'citation': 'still citing'}],
-#     'dop-1': [{'node': 'AUA', 'citation': "just keen on citin'"}]
-# }
-
-ma_to_receptors = {
-    'Dopamine': [
-        {
-            'name': 'dop-1',
-            'citation': 'a citation!'
-        },
-        {
-            'name': 'dop-2',
-            'citation': 'another citation'
-        }
-    ],
-    'Serotonin': [
-        {
-            'name': 'ser-1',
-            'citation': 'you get the picture'
-        }
-    ]
-}

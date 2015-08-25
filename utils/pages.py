@@ -2,6 +2,8 @@ from baseclasses import Handler
 from models import *
 from collections import defaultdict
 from itertools import chain
+from google.appengine.api import memcache
+from connectome import generate_and_cache_edgelist
 
 
 class WelcomePage(Handler):
@@ -12,7 +14,7 @@ class WelcomePage(Handler):
 class SrcExpressionPage(Handler):
     def get(self):
 
-        ma_to_src_genes = SourceGene.get_ma_to_src_genes()  #
+        ma_to_src_genes = SourceGene.get_all_by_monoamine()  #
         # self.write('ma_to_src_genes = ' + str(ma_to_src_genes))
         src_expr = GeneExpression.get_genes([d['gene'] for d in chain(*ma_to_src_genes.values())])
         # self.write('src_expr = ' + str(src_expr))
@@ -23,7 +25,7 @@ class SrcExpressionPage(Handler):
 class TgtExpressionPage(Handler):
     def get(self):
 
-        ma_to_rec_genes = Receptor.get_ma_to_rec_genes()  #
+        ma_to_rec_genes = Receptor.get_all_by_monoamine()  #
         # self.write('ma_to_src_genes = ' + str(ma_to_src_genes))
         rec_expr = GeneExpression.get_genes([d['gene'] for d in chain(*ma_to_rec_genes.values())])
         # self.write('src_expr = ' + str(src_expr))
@@ -66,4 +68,21 @@ class AdminPage(Handler):
 
 class DataPage(Handler):
     def get(self):
-        self.render('data.html', admin=True)
+        edgelist = memcache.get('edgelist')
+        if not edgelist:
+            self.write('Generating data...')
+            edgelist = generate_and_cache_edgelist()
+            self.redirect('/data')
+
+        if not edgelist:
+            self.write('Sorry, edgelist could not be generated!')
+        else:
+            self.display_csv(edgelist)
+
+    def display_csv(self, csv):
+        self.write(csv.replace('\r\n', '<br>'))
+
+
+
+
+
