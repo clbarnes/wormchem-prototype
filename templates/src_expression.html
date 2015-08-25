@@ -12,7 +12,7 @@
                 <li>{{ gene_dict['gene'] }}</li>
                 <ul>
                     {% for expr in src_expr[gene_dict['gene']] %}
-                        <li>{{ expr['node'] }} -- {{ expr['wbid'] }} -- {{ expr['citation'] }}</li>
+                        <li>{{ expr['node'] }} -- {{ wbid_to_link(expr['wbid']) | safe }} -- {{ expr['citation'] }}</li>
                     {% endfor %}
                 </ul>
             {% endfor %}

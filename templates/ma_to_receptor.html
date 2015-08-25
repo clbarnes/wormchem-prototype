@@ -9,7 +9,7 @@
 <h3>{{ monoamine.title() }}</h3>
 <ul>
     {% for receptor in receptors %}
-    <li>{{ receptor.gene }} -- {{ receptor.wbid }} -- {{ receptor.citation }}</li>
+    <li>{{ receptor.gene }} -- {{ wbid_to_link(receptor.wbid) | safe }} -- {{ receptor.citation }}</li>
     {% endfor %}
 </ul>
 {% endfor %}

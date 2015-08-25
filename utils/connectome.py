@@ -19,7 +19,9 @@ def generate_edges():
     receptors_by_monoamine = Receptor.get_all_by_monoamine()
 
     for monoamine, src_gene_dicts_list in SourceGene.get_all_by_monoamine().items():
-        for src_node in chain(*[expr[src_gene_dict['gene']] for src_gene_dict in src_gene_dicts_list]):
+        src_genes = [src_gene_dict['gene'] for src_gene_dict in src_gene_dicts_list]
+        src_nodes = sorted(set(chain(*[expr[gene] for gene in src_genes])))
+        for src_node in src_nodes:
             for tgt_gene in (d['gene'] for d in receptors_by_monoamine[monoamine]):
                 for tgt_node in expr[tgt_gene]:
                     yield src_node, tgt_node, monoamine.lower(), tgt_gene

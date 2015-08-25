@@ -1,9 +1,30 @@
-from baseclasses import Handler
+from baseclasses import Handler, jinja_env
 from models import *
 from collections import defaultdict
 from itertools import chain
 from google.appengine.api import memcache
 from connectome import generate_and_cache_edgelist
+import cgi
+
+
+def wbid_to_link(wbid):
+    escaped_wbid = cgi.escape(wbid)
+    if wbid in ['', '?']:
+        return 'no WBID'
+    elif 'expr' in wbid.lower():
+        wb_type = 'species/all/expr_pattern'
+    elif 'wbgene' in wbid.lower():
+        wb_type = 'species/all/gene'
+    elif 'wbpaper' in wbid.lower():
+        wb_type = 'resources/paper'
+    else:
+        return '<a href="{}">{}<a>'.format('http://www.wormbase.org/search/all/' + escaped_wbid, escaped_wbid)
+
+    url = 'http://www.wormbase.org/{}/{}'.format(wb_type, escaped_wbid)
+    return '<a href="{}">{}<a>'.format(url, escaped_wbid)
+
+
+jinja_env.globals['wbid_to_link'] = wbid_to_link
 
 
 class WelcomePage(Handler):
