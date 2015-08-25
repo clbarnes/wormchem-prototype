@@ -64,4 +64,6 @@ docs/_build/
 # PyBuilder
 target/
 
-
+# data
+initial_setup/*.csv
+initial_setup/*.xlsx
